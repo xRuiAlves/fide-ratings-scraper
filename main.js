@@ -36,7 +36,7 @@ const getElo = async (fide_num) => {
     };
 };
 
-const getHistory = async (fide_num) => {
+const getHistory = async (fide_num, csv_output) => {
     const res = await axios.get(`http://ratings.fide.com/id.phtml?event=${fide_num}`);
     const $ = cheerio.load(res.data);
     const table_entries = $(`
@@ -53,11 +53,13 @@ const getHistory = async (fide_num) => {
             blitz: row[5].children[0].data.replace(/\s/g, ""),
         });
     });
-    return history;
+    return csv_output ? history.sort((e1, e2) => e2.numeric_date - e1.numeric_date).map((entry) =>
+        `(${entry.date},${entry.standard},${entry.rapid},${entry.blitz})`,
+    ) : history;
 };
 
 getElo(process.argv[2])
     .then((elo) => console.log(elo));
 
-getHistory(process.argv[2])
+getHistory(process.argv[2], true)
     .then((history) => console.log(history));
