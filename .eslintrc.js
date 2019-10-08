@@ -10,6 +10,7 @@ module.exports = {
     },
   
     "parserOptions": {
+      "ecmaVersion": 8,
       "ecmaFeatures": {
         "jsx": true,
       },
