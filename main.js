@@ -8,5 +8,5 @@ if (process.argv.length < 3) {
 fide_ratings.getPlayerElo(process.argv[2])
     .then((elo) => console.log(elo));
 
-/* fide_ratings.getHistory(process.argv[2], true)
-    .then((history) => console.log(history)); */
+fide_ratings.getPlayerHistory(process.argv[2], true)
+    .then((history) => console.log(history));

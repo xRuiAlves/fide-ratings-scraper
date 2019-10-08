@@ -14,12 +14,11 @@ const getPlayerElo = async (fide_num) => {
     };
 };
 
-const getHistory = async (fide_num, csv_output) => {
-    const res = await axios.get(`http://ratings.fide.com/id.phtml?event=${fide_num}`);
+const getPlayerHistory = async (fide_num, csv_output) => {
+    const res = await axios.get(`https://ratings.fide.com/profile/${fide_num}/chart`);
     const $ = cheerio.load(res.data);
-    const table_entries = $(`
-        #main-col table:nth-child(2) tr:nth-child(2) td div 
-        table tr:nth-child(2) td table tbody tr`);
+    const table_entries = $("table.profile-table.profile-table_chart-table tbody tr");
+    
     const history = [];
     table_entries.map((i) => {
         const row = cheerio.load(table_entries[i])("td");
@@ -38,5 +37,5 @@ const getHistory = async (fide_num, csv_output) => {
 
 module.exports = {
     getPlayerElo,
-    getHistory
+    getPlayerHistory
 }
