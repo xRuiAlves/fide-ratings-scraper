@@ -34,7 +34,7 @@ const getPlayerHistory = async (fide_num, csv_output) => {
         });
     });
     return csv_output ? history.sort((e1, e2) => e2.numeric_date - e1.numeric_date).map((entry) =>
-        `(${entry.date},${entry.standard},${entry.rapid},${entry.blitz})`,
+        utils.ratingJSONToCSV(entry)
     ) : history;
 };
 

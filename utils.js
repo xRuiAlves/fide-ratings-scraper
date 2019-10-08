@@ -17,6 +17,9 @@ const parseDate = (date) => {
     return parseInt(`${date.substr(0, 4)}${month_num}`, 10);
 };
 
+const ratingJSONToCSV = (json) => `(${json.date},${json.standard},${json.rapid},${json.blitz})`;
+
 module.exports = {
     parseDate,
+    ratingJSONToCSV,
 };
