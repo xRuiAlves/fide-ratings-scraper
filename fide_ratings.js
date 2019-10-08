@@ -5,7 +5,7 @@ const utils = require("./utils");
 const getPlayerElo = async (fide_num) => {
     const res = await axios.get(`https://ratings.fide.com/profile/${fide_num}`);
     const $ = cheerio.load(res.data);
-    const elo_row = $(`.profile-top-rating-data`);
+    const elo_row = $(".profile-top-rating-data");
 
     return {
         standard: elo_row[0].children[2].data.replace(/\s/g, ""),
@@ -18,7 +18,7 @@ const getPlayerHistory = async (fide_num, csv_output) => {
     const res = await axios.get(`https://ratings.fide.com/profile/${fide_num}/chart`);
     const $ = cheerio.load(res.data);
     const table_entries = $("table.profile-table.profile-table_chart-table tbody tr");
-    
+
     const history = [];
     table_entries.map((i) => {
         const row = cheerio.load(table_entries[i])("td");
@@ -34,11 +34,11 @@ const getPlayerHistory = async (fide_num, csv_output) => {
         });
     });
     return csv_output ? history.sort((e1, e2) => e2.numeric_date - e1.numeric_date).map((entry) =>
-        utils.ratingJSONToCSV(entry)
+        utils.ratingJSONToCSV(entry),
     ) : history;
 };
 
 module.exports = {
     getPlayerElo,
-    getPlayerHistory
-}
+    getPlayerHistory,
+};
