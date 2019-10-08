@@ -6,7 +6,19 @@ if (process.argv.length < 3) {
 }
 
 fide_ratings.getPlayerElo(process.argv[2])
-    .then((elo) => console.log(elo));
+    .then((elo) => {
+        console.log("----- Player ELO -----");
+        console.log(elo);
+    });
 
 fide_ratings.getPlayerHistory(process.argv[2])
-    .then((history) => console.log(history));
+    .then((history) => {
+        console.log("----- Player History -----");
+        console.log(history);
+    });
+
+fide_ratings.getPlayerInfo(process.argv[2])
+    .then((info) => {
+        console.log("----- Player Info -----");
+        console.log(info);
+    });
