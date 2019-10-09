@@ -88,7 +88,13 @@ app.get("/player/:fide_num/history/", (req, res) => {
 
     fide_ratings.getPlayerHistory(fide_num)
         .then((data) => {
-            res.json(data);
+            if (data.length === 0) {
+                res.status(404).json(utils.buildErrorResponse(
+                    "No history was found for the request player",
+                ));
+            } else {
+                res.json(data);
+            }
         })
         .catch(() => {
             res.status(500).json(utils.buildErrorResponse(
