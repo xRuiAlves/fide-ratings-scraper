@@ -1,11 +1,21 @@
 require("dotenv-flow").config();
 
+const DEFAULT_PORT = 3000;
+const DEFAULT_REQUEST_TIMEOUT = 10000;
+
 const fide_ratings = require("./fide_ratings");
 const utils = require("./utils");
 const express = require("express");
+const timeout = require("express-timeout-handler");
 const app = express();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || DEFAULT_PORT;
+const request_timeout = parseInt(process.env.RESPONSE_TIMEOUT_MS, 10) || DEFAULT_REQUEST_TIMEOUT;
+
+app.use(timeout.handler({
+    timeout: request_timeout,
+    onTimeout: (req, res) => res.status(408).send(),
+}));
 
 app.use((req, res, next) => {
     res.set("Content-Type", "application/json");
