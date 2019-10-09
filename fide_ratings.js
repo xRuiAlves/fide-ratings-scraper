@@ -32,6 +32,25 @@ const getPlayerRank = async (fide_num) => {
     };
 };
 
+const getPlayerPersonalData = async (fide_num) => {
+    const $ = await fetchProfilePage(fide_num);
+
+    const name = $(".profile-top-title")[0].children[0].data;
+    const federation = $(".profile-top-info__block__row__data")[1].children[0].data;
+    const birth_year = parseInt($(".profile-top-info__block__row__data")[3].children[0].data, 10);
+    const sex = $(".profile-top-info__block__row__data")[4].children[0].data;
+    const title = $(".profile-top-info__block__row__data")[5].children[0].data;
+
+    return {
+        name,
+        fide_num,
+        federation,
+        birth_year,
+        sex,
+        title,
+    };
+};
+
 const getPlayerFullInfo = async (fide_num) => {
     const $ = await fetchProfilePage(fide_num);
     const name = $(".profile-top-title")[0].children[0].data;
@@ -110,4 +129,5 @@ module.exports = {
     getPlayerElo,
     getPlayerHistory,
     getPlayerRank,
+    getPlayerPersonalData,
 };
