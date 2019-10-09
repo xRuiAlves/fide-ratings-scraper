@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "engines": {
+    "node": "10.16.3"
+  },
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
