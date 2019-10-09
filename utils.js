@@ -19,7 +19,10 @@ const parseDate = (date) => {
 
 const ratingJSONToCSV = (json) => `(${json.date},${json.standard},${json.rapid},${json.blitz})`;
 
+const buildErrorResponse = (reason) => ({ reason });
+
 module.exports = {
     parseDate,
     ratingJSONToCSV,
+    buildErrorResponse,
 };
