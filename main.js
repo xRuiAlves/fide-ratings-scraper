@@ -44,6 +44,8 @@ app.get("/player/:fide_num/history/", (req, res) => {
     });
 });
 
+app.get("*", (req, res) => res.status(404).send(""));
+
 app.listen(port, () =>
     console.log(`Started listening on ${port} . . .`),
 );
