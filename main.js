@@ -4,6 +4,12 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
+app.use((req, res, next) => {
+    res.set("Content-Type", "application/json");
+
+    next();
+});
+
 app.get("/player/:fide_num/info", (req, res) => {
     const { fide_num } = req.params;
 
