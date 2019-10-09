@@ -2,10 +2,38 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const utils = require("./utils");
 
-const getPlayerInfo = async (fide_num) => {
+const fetchProfilePage = async (fide_num) => {
     const res = await axios.get(`https://ratings.fide.com/profile/${fide_num}`);
-    const $ = cheerio.load(res.data);
+    return cheerio.load(res.data);
+};
 
+const fetchHistoryPage = async (fide_num) => {
+    const res = await axios.get(`https://ratings.fide.com/profile/${fide_num}/chart`);
+    return cheerio.load(res.data);
+};
+
+const getPlayerRank = async (fide_num) => {
+    const $ = await fetchProfilePage(fide_num);
+
+    const world_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:first-child td")[1].children[0].data, 10);
+    const world_rank_active_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(2) td")[1].children[0].data, 10);
+    const national_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:first-child td")[3].children[0].data, 10);
+    const national_rank_active_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(2) td")[3].children[0].data, 10);
+    const continental_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:first-child td")[5].children[0].data, 10);
+    const continental_rank_active_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(2) td")[5].children[0].data, 10);
+
+    return {
+        world_rank_all_players,
+        world_rank_active_players,
+        national_rank_all_players,
+        national_rank_active_players,
+        continental_rank_all_players,
+        continental_rank_active_players,
+    };
+};
+
+const getPlayerFullInfo = async (fide_num) => {
+    const $ = await fetchProfilePage(fide_num);
     const name = $(".profile-top-title")[0].children[0].data;
 
     const world_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:first-child td")[1].children[0].data, 10);
@@ -44,8 +72,7 @@ const getPlayerInfo = async (fide_num) => {
 };
 
 const getPlayerElo = async (fide_num) => {
-    const res = await axios.get(`https://ratings.fide.com/profile/${fide_num}`);
-    const $ = cheerio.load(res.data);
+    const $ = await fetchProfilePage(fide_num);
     const elo_row = $(".profile-top-rating-data");
 
     return {
@@ -56,8 +83,7 @@ const getPlayerElo = async (fide_num) => {
 };
 
 const getPlayerHistory = async (fide_num, csv_output) => {
-    const res = await axios.get(`https://ratings.fide.com/profile/${fide_num}/chart`);
-    const $ = cheerio.load(res.data);
+    const $ = await fetchHistoryPage(fide_num);
     const table_entries = $("table.profile-table.profile-table_chart-table tbody tr");
 
     const history = [];
@@ -80,7 +106,8 @@ const getPlayerHistory = async (fide_num, csv_output) => {
 };
 
 module.exports = {
-    getPlayerInfo,
+    getPlayerFullInfo,
     getPlayerElo,
     getPlayerHistory,
+    getPlayerRank,
 };
