@@ -6,10 +6,30 @@ This set of JS utility functions (built using NodeJS) aim to provide a sort-of-a
 
 I decided to implement this so that I could integrate it in a few of my chess-related projects. Maybe it can help other people in their personal projects as well :+1:.
 
+Start the API by running:
+
+```
+npm start
+```
+
 ## Setup
 
 As in any NodeJS application:
 
 ```
 npm install
+```
+
+Copy the `.env` template and configure the local environment setup:
+
+```
+cp .env .env.local
+```
+
+## Testing
+
+To run the test suites, simply run
+
+```
+npm test
 ```
