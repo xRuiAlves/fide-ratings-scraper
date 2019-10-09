@@ -2,6 +2,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const utils = require("./utils");
 
+// Pages fetching
 const fetchProfilePage = async (fide_num) => {
     const res = await axios.get(`https://ratings.fide.com/profile/${fide_num}`);
     return cheerio.load(res.data);
@@ -12,9 +13,8 @@ const fetchHistoryPage = async (fide_num) => {
     return cheerio.load(res.data);
 };
 
-const getPlayerRank = async (fide_num) => {
-    const $ = await fetchProfilePage(fide_num);
-
+// Pages Parsing
+const parseRankFromProfilePage = ($) => {
     const world_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:first-child td")[1].children[0].data, 10);
     const world_rank_active_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(2) td")[1].children[0].data, 10);
     const national_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:first-child td")[3].children[0].data, 10);
@@ -32,9 +32,7 @@ const getPlayerRank = async (fide_num) => {
     };
 };
 
-const getPlayerPersonalData = async (fide_num) => {
-    const $ = await fetchProfilePage(fide_num);
-
+const parsePersonalDataFromProfilePage = ($) => {
     const name = $(".profile-top-title")[0].children[0].data;
     const federation = $(".profile-top-info__block__row__data")[1].children[0].data;
     const birth_year = parseInt($(".profile-top-info__block__row__data")[3].children[0].data, 10);
@@ -43,7 +41,6 @@ const getPlayerPersonalData = async (fide_num) => {
 
     return {
         name,
-        fide_num,
         federation,
         birth_year,
         sex,
@@ -51,53 +48,41 @@ const getPlayerPersonalData = async (fide_num) => {
     };
 };
 
-const getPlayerFullInfo = async (fide_num) => {
-    const $ = await fetchProfilePage(fide_num);
-    const name = $(".profile-top-title")[0].children[0].data;
-
-    const world_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:first-child td")[1].children[0].data, 10);
-    const world_rank_active_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(2) td")[1].children[0].data, 10);
-    const national_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:first-child td")[3].children[0].data, 10);
-    const national_rank_active_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(2) td")[3].children[0].data, 10);
-    const continental_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:first-child td")[5].children[0].data, 10);
-    const continental_rank_active_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(2) td")[5].children[0].data, 10);
-
+const parseEloFromProfilePage = ($) => {
     const standard_elo = $(".profile-top-rating-data")[0].children[2].data.replace(/\s/g, "");
     const rapid_elo = $(".profile-top-rating-data")[1].children[2].data.replace(/\s/g, "");
     const blitz_elo = $(".profile-top-rating-data")[2].children[2].data.replace(/\s/g, "");
 
-    const federation = $(".profile-top-info__block__row__data")[1].children[0].data;
-    const birth_year = parseInt($(".profile-top-info__block__row__data")[3].children[0].data, 10);
-    const sex = $(".profile-top-info__block__row__data")[4].children[0].data;
-    const title = $(".profile-top-info__block__row__data")[5].children[0].data;
-
     return {
-        name,
-        fide_num,
-        federation,
-        birth_year,
-        sex,
-        title,
         standard_elo,
         rapid_elo,
         blitz_elo,
-        world_rank_all_players,
-        world_rank_active_players,
-        national_rank_all_players,
-        national_rank_active_players,
-        continental_rank_all_players,
-        continental_rank_active_players,
     };
+};
+
+// Data methods
+const getPlayerRank = async (fide_num) => {
+    const $ = await fetchProfilePage(fide_num);
+    return parseRankFromProfilePage($);
+};
+
+const getPlayerPersonalData = async (fide_num) => {
+    const $ = await fetchProfilePage(fide_num);
+    return parsePersonalDataFromProfilePage($);
 };
 
 const getPlayerElo = async (fide_num) => {
     const $ = await fetchProfilePage(fide_num);
-    const elo_row = $(".profile-top-rating-data");
+    return parseEloFromProfilePage($);
+};
+
+const getPlayerFullInfo = async (fide_num) => {
+    const $ = await fetchProfilePage(fide_num);
 
     return {
-        standard: elo_row[0].children[2].data.replace(/\s/g, ""),
-        rapid: elo_row[1].children[2].data.replace(/\s/g, ""),
-        blitz: elo_row[2].children[2].data.replace(/\s/g, ""),
+        ...parsePersonalDataFromProfilePage($),
+        ...parseEloFromProfilePage($),
+        ...parseRankFromProfilePage($),
     };
 };
 
