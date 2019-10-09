@@ -1,6 +1,7 @@
 require("dotenv-flow").config();
 
 const fide_ratings = require("./fide_ratings");
+const utils = require("./utils");
 const express = require("express");
 const app = express();
 
@@ -10,6 +11,18 @@ app.use((req, res, next) => {
     res.set("Content-Type", "application/json");
 
     next();
+});
+
+app.get("/player/:fide_num/*", (req, res, next) => {
+    const { fide_num } = req.params;
+
+    if (isNaN(fide_num)) {
+        res.status(400).json(
+            utils.buildErrorResponse("The player's fide number must be a positive integer number",
+            ));
+    } else {
+        next();
+    }
 });
 
 app.get("/player/:fide_num/info", (req, res) => {
