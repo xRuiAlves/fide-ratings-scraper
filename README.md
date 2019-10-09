@@ -1,4 +1,4 @@
-# FIDE ratings scrapper
+# FIDE ratings scraper
 
 [FIDE](http://ratings.fide.com/) is the International Chess Federation. They have a ratings sub-domain where players can check their international ELO rating (in different categories), their perfomance history, *et cetera*.
 
@@ -10,6 +10,7 @@ I decided to implement this so that I could integrate it in a few of my chess-re
 - [Setup](#setup) 
 - [Testing](#testing) 
 - [API Documentation](#api-documentation) 
+- [Running Sample](#running-sample)
 
 ## Running the API
 
@@ -165,3 +166,7 @@ Get a full list of all the player's ELO ratings (in all the categories) along th
     }
 ]
 ```
+
+## Running Sample
+
+You may find a running sample in [https://lit-wildwood-98645.herokuapp.com](https://lit-wildwood-98645.herokuapp.com), deployed using [Heroku](https://www.heroku.com)'s free deployments.
