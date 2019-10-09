@@ -40,11 +40,7 @@ app.get("/player/:fide_num/info", (req, res) => {
 
     fide_ratings.getPlayerFullInfo(fide_num)
         .then((data) => res.json(data))
-        .catch(() => {
-            res.status(500).json(utils.buildErrorResponse(
-                "Failed to fetch player information",
-            ));
-        });
+        .catch((err) => playerEndpointsErrorHandler(err, res));
 });
 
 app.get("/player/:fide_num/personal-data", (req, res) => {
@@ -52,11 +48,7 @@ app.get("/player/:fide_num/personal-data", (req, res) => {
 
     fide_ratings.getPlayerPersonalData(fide_num)
         .then((data) => res.json(data))
-        .catch(() => {
-            res.status(500).json(utils.buildErrorResponse(
-                "Failed to fetch player information",
-            ));
-        });
+        .catch((err) => playerEndpointsErrorHandler(err, res));
 });
 
 app.get("/player/:fide_num/rank", (req, res) => {
@@ -64,11 +56,7 @@ app.get("/player/:fide_num/rank", (req, res) => {
 
     fide_ratings.getPlayerRank(fide_num)
         .then((data) => res.json(data))
-        .catch(() => {
-            res.status(500).json(utils.buildErrorResponse(
-                "Failed to fetch player information",
-            ));
-        });
+        .catch((err) => playerEndpointsErrorHandler(err, res));
 });
 
 app.get("/player/:fide_num/elo", (req, res) => {
@@ -76,31 +64,15 @@ app.get("/player/:fide_num/elo", (req, res) => {
 
     fide_ratings.getPlayerElo(fide_num)
         .then((data) => res.json(data))
-        .catch(() => {
-            res.status(500).json(utils.buildErrorResponse(
-                "Failed to fetch player information",
-            ));
-        });
+        .catch((err) => playerEndpointsErrorHandler(err, res));
 });
 
 app.get("/player/:fide_num/history/", (req, res) => {
     const { fide_num } = req.params;
 
     fide_ratings.getPlayerHistory(fide_num)
-        .then((data) => {
-            if (data.length === 0) {
-                res.status(404).json(utils.buildErrorResponse(
-                    "No history was found for the request player",
-                ));
-            } else {
-                res.json(data);
-            }
-        })
-        .catch(() => {
-            res.status(500).json(utils.buildErrorResponse(
-                "Failed to fetch player information",
-            ));
-        });
+        .then((data) => res.json(data))
+        .catch((err) => playerEndpointsErrorHandler(err, res));
 });
 
 app.get("*", (req, res) => res.status(404).send(""));
@@ -108,3 +80,14 @@ app.get("*", (req, res) => res.status(404).send(""));
 app.listen(port, () =>
     console.log(`Started listening on ${port} . . .`),
 );
+
+const playerEndpointsErrorHandler = (err, res) => {
+    if (err === "Not found") {
+        res.status(404).json(utils.buildErrorResponse(
+            "Requested player does not exist",
+        ));
+    }
+    res.status(500).json(utils.buildErrorResponse(
+        "Failed to fetch player information",
+    ));
+};

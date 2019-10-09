@@ -5,12 +5,24 @@ const utils = require("./utils");
 // Pages fetching
 const fetchProfilePage = async (fide_num) => {
     const res = await axios.get(`https://ratings.fide.com/profile/${fide_num}`);
-    return cheerio.load(res.data);
+    const $ = cheerio.load(res.data);
+
+    if ($(".profile-bottom").length === 0) {
+        throw "Not found";
+    } else {
+        return $;
+    }
 };
 
 const fetchHistoryPage = async (fide_num) => {
     const res = await axios.get(`https://ratings.fide.com/profile/${fide_num}/chart`);
-    return cheerio.load(res.data);
+    const $ = cheerio.load(res.data);
+
+    if ($(".profile-bottom").length === 0) {
+        throw "Not found";
+    } else {
+        return $;
+    }
 };
 
 // Pages Parsing
