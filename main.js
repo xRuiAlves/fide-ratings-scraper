@@ -1,3 +1,5 @@
+require("dotenv-flow").config();
+
 const fide_ratings = require("./fide_ratings");
 const express = require("express");
 const app = express();
