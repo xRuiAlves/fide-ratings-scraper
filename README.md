@@ -130,7 +130,7 @@ Get the player's ELO in all the categories.
 /player/{{fide_number}}/history
 ```
 
-Get a full list of all the player's ELO ratings (in all the categories) along the past years.
+Get a full list of all the player's ELO ratings (in all the categories) along the past years, ordered by date (most recent first).
 
 ```json
 [
