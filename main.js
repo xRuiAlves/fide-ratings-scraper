@@ -19,6 +19,7 @@ app.use(timeout.handler({
 
 app.use((req, res, next) => {
     res.set("Content-Type", "application/json");
+    res.set("Access-Control-Allow-Origin", "*");
 
     next();
 });
