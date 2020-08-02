@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "mutator": "javascript",
+  "packageManager": "npm",
+  "reporters": [
+    "clear-text",
+    "progress"
+  ],
+  "dashboard": {
+    "baseUrl": "https://dashboard.stryker-mutator.io/api/reports",
+    "project": "github.com/xRuiAlves/fide-ratings-scraper",
+    "version": "master",
+    "reportType": "full"
+  },
+  "testRunner": "jest",
+  "maxConcurrentTestRunners": 4,
+  "mutate": [
+    "src/**/*.js",
+    "!src/fideAPI.js",
+    "!src/api.js",
+    "!src/main.js"
+  ],
+  "transpilers": [],
+  "coverageAnalysis": "off"
+}

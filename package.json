@@ -10,6 +10,7 @@
     "start": "nodemon src/api.js",
     "prod": "node src/api.js",
     "test": "jest --coverage",
+    "test:mutation": "stryker run",
     "lint": "eslint test/**/*.js src/**/*.js"
   },
   "author": "",
@@ -22,6 +23,9 @@
     "express-timeout-handler": "^2.2.0"
   },
   "devDependencies": {
+    "@stryker-mutator/core": "^3.3.1",
+    "@stryker-mutator/javascript-mutator": "^3.3.1",
+    "@stryker-mutator/jest-runner": "^3.3.1",
     "eslint": "^7.6.0",
     "fs": "0.0.1-security",
     "jest": "^26.2.2",

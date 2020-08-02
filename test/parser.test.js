@@ -108,6 +108,8 @@ describe("Parse history from Player's history page", () => {
             expect(entry.blitz).toBeDefined();
             expect(entry.num_blitz_games).toBeDefined();
             expect(isNaN(entry.date)).toBe(true);
+            expect(typeof entry.date).toBe("string");
+            expect(entry.date.length).toBe(8);
             expect(isNaN(entry.numeric_date)).toBe(false);
             expect(isNaN(entry.standard)).toBe(false);
             expect(isNaN(entry.num_standard_games)).toBe(false);
