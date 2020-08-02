@@ -4,6 +4,9 @@
   "description": "FIDE player ratings scraper",
   "repository": "github:xRuiAlves/fide-ratings-scraper",
   "main": "src/api.js",
+  "bin": {
+    "interview-matcher": "./bin/index.js"
+  },
   "scripts": {
     "start": "node src/api.js",
     "dev": "nodemon src/api.js",

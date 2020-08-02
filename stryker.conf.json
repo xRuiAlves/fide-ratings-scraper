@@ -18,6 +18,7 @@
     "src/**/*.js",
     "!src/fideAPI.js",
     "!src/api.js",
+    "!src/printer.js",
     "!src/main.js"
   ],
   "transpilers": [],
