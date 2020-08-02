@@ -1,22 +1,20 @@
 {
   "name": "fidescrapper",
   "version": "1.0.0",
-  "description": "",
+  "description": "FIDE player ratings scraper",
+  "repository": "github:xRuiAlves/fide-ratings-scraper",
   "main": "src/api.js",
-  "engines": {
-    "node": "10.16.3"
-  },
   "scripts": {
-    "start": "nodemon src/api.js",
-    "prod": "node src/api.js",
+    "start": "node src/api.js",
+    "dev": "nodemon src/api.js",
     "test": "jest --coverage",
     "test:publish": "npm test && coveralls < coverage/lcov.info",
     "test:mutation": "stryker run",
     "test:mutation:publish": "stryker run --reporters dashboard",
     "lint": "eslint test/**/*.js src/**/*.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Rui Alves",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.19.0",
     "cheerio": "^1.0.0-rc.3",
