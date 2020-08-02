@@ -1,11 +1,11 @@
 {
-  "name": "fidescrapper",
+  "name": "fide-ratings-scraper",
   "version": "1.0.0",
   "description": "FIDE player ratings scraper",
   "repository": "github:xRuiAlves/fide-ratings-scraper",
-  "main": "src/api.js",
+  "main": "src/main.js",
   "bin": {
-    "interview-matcher": "./bin/index.js"
+    "fide-ratings-scraper": "./bin/index.js"
   },
   "scripts": {
     "start": "node src/api.js",
@@ -16,6 +16,12 @@
     "test:mutation:publish": "stryker run --reporters dashboard",
     "lint": "eslint test/**/*.js src/**/*.js"
   },
+  "keywords": [
+    "FIDE",
+    "Chess",
+    "Ratings",
+    "Scraping"
+  ],
   "author": "Rui Alves",
   "license": "MIT",
   "dependencies": {

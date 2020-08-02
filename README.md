@@ -6,9 +6,47 @@
 [![Coverage Status](https://coveralls.io/repos/github/xRuiAlves/fide-ratings-scraper/badge.svg?branch=master)](https://coveralls.io/github/xRuiAlves/fide-ratings-scraper?branch=master)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FxRuiAlves%2Ffide-ratings-scraper%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/xRuiAlves/fide-ratings-scraper/master)
 
-[FIDE](http://ratings.fide.com/) is the International Chess Federation. They have a ratings sub-domain where players can check their international ELO rating (in different categories), their perfomance history, *et cetera*.
-
 This package offers an interface (both as a CLI and/or as a server API) to get chess player ratings information in a programative way.
+
+[FIDE](http://ratings.fide.com/) is the International Chess Federation. They feature a ratings sub-domain where players may check their international ELO rating (in different categories), their perfomance history, *et cetera*.
+
+## Features
+
+- Access chess players0 FIDE ratings information in a programative way
+- Easily expose an API to access ratings resource scraped and parsed directly from FIDE ratings website
+
+## Installing
+
+Using npm:
+
+```
+$ npm i -g fide-ratings-scraper
+```
+
+## Usage
+
+```
+$ fide-ratings-scraper <operation> [...args]
+```
+
+- `operation`:
+    - `get`: Obtain a resource
+        - `info`: Obtain a player's full available info
+        - `personal-data`: Obtain a player's personal data
+        - `rank`: Obtain a player's rank
+        - `elo`: Obtain a player's ELO (in different categories)
+        - `history`: Obtain a player's ELOs history
+    - `api`: Start app as a web API
+
+### Example
+
+```
+$ fide-ratings-scraper get info 1503014
+```
+
+```
+$ fide-ratings-scraper api
+```
 
 ## API
 
@@ -135,6 +173,25 @@ Get a full list of all the player's ELO ratings (in all the categories) along th
 ]
 ```
 
+## Tests
+
+To run the test suite, install the project's dependencies and run `npm test`:
+
+```
+$ npm install
+$ npm test
+```
+
+To run mutation tests:
+
+```
+$ npm run test:mutation
+```
+
 ## Running API
 
-You may find a running sample at [https://fide-ratings-scraper.herokuapp.com/](https://fide-ratings-scraper.herokuapp.com/), deployed using [Heroku](https://www.heroku.com).
+A running sample may be found at [https://fide-ratings-scraper.herokuapp.com/](https://fide-ratings-scraper.herokuapp.com/), deployed using [Heroku](https://www.heroku.com).
+
+## License
+
+[MIT](https://github.com/xRuiAlves/fide-ratings-scraper/blob/master/LICENSE)

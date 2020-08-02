@@ -15,8 +15,8 @@ const printError = (err, msg) => {
  * Print tool usage to stdout
  */
 const printUsage = () => {
-    console.info("usage: fide-ratings-scrate <operation> [...args]");
-    console.info("\toperations:");
+    console.info("usage: fide-ratings-scraper <operation> [...args]");
+    console.info("\toperation:");
     console.info("\t\tget:  Obtain resource");
     console.info("\t\tapi:  Start app as a web API");
     console.info("");

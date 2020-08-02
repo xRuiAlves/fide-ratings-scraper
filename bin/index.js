@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const { printUsage, printError } = require("../src/printer");
 const ERRORS = require("../src/errors");
 const RESOURCE_TYPES = require("../src/resourceTypes");
