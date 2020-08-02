@@ -28,11 +28,11 @@ const fetchHistoryPage = async (fide_num) => {
 
 // Pages Parsing
 const parseRankFromProfilePage = ($) => {
-    const world_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:first-child td")[1].children[0].data, 10);
+    const world_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(1) td")[2].children[0].data, 10);
     const world_rank_active_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(2) td")[1].children[0].data, 10);
-    const national_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:first-child td")[3].children[0].data, 10);
+    const national_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(1) td")[4].children[0].data, 10);
     const national_rank_active_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(2) td")[3].children[0].data, 10);
-    const continental_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:first-child td")[5].children[0].data, 10);
+    const continental_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(1) td")[6].children[0].data, 10);
     const continental_rank_active_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(2) td")[5].children[0].data, 10);
 
     return {

@@ -73,10 +73,7 @@ app.get("/player/:fide_num/history/", (req, res) => {
 
     fide_ratings.getPlayerHistory(fide_num)
         .then((data) => res.json(data))
-        .catch((err) => {
-            console.error(err);
-            playerEndpointsErrorHandler(err, res);
-        });
+        .catch((err) => playerEndpointsErrorHandler(err, res));
 });
 
 app.get("*", (req, res) => res.status(404).send(""));
