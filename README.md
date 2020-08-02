@@ -8,52 +8,14 @@
 
 [FIDE](http://ratings.fide.com/) is the International Chess Federation. They have a ratings sub-domain where players can check their international ELO rating (in different categories), their perfomance history, *et cetera*.
 
-This set of JS utility functions (built using NodeJS) aim to provide a sort-of-api to get info from their ratings pages.
+This package offers an interface (both as a CLI and/or as a server API) to get chess player ratings information in a programative way.
 
-I decided to implement this so that I could integrate it in a few of my chess-related projects. Maybe it can help other people in their personal projects as well :+1:.
-
-- [Running the API](#running-the-api) 
-- [Setup](#setup) 
-- [Testing](#testing) 
-- [API Documentation](#api-documentation) 
-- [Running Sample](#running-sample)
-
-## Running the API
-
-Start the API by running:
-
-```
-npm start
-```
-
-## Setup
-
-As in any NodeJS application:
-
-```
-npm install
-```
-
-Copy the `.env` template and configure the local environment setup:
-
-```
-cp .env .env.local
-```
-
-## Testing
-
-To run the test suites, simply run
-
-```
-npm test
-```
-
-## API Documentation
+## API
 
 ### <span style="color:green">GET&nbsp;</span> Player Full Info
 
 ```
-/player/{{fide_number}}/info
+/player/{fide_number}/info
 ```
 
 Get all the information provided by FIDE about the player. 
@@ -80,7 +42,7 @@ Get all the information provided by FIDE about the player.
 ### <span style="color:green">GET&nbsp;</span> Player Personal Data
 
 ```
-/player/{{fide_number}}/personal-data
+/player/{fide_number}/personal-data
 ```
 
 Get the player's personal data.
@@ -98,7 +60,7 @@ Get the player's personal data.
 ### <span style="color:green">GET&nbsp;</span> Player Rank
 
 ```
-/player/{{fide_number}}/rank
+/player/{fide_number}/rank
 ```
 
 Get the player's rank in different ranking lists.
@@ -117,7 +79,7 @@ Get the player's rank in different ranking lists.
 ### <span style="color:green">GET&nbsp;</span> Player ELO
 
 ```
-/player/{{fide_number}}/elo
+/player/{fide_number}/elo
 ```
 
 Get the player's ELO in all the categories.
@@ -133,7 +95,7 @@ Get the player's ELO in all the categories.
 ### <span style="color:green">GET&nbsp;</span> Player History
 
 ```
-/player/{{fide_number}}/history
+/player/{fide_number}/history
 ```
 
 Get a full list of all the player's ELO ratings (in all the categories) along the past years, ordered by date (most recent first).
@@ -173,6 +135,6 @@ Get a full list of all the player's ELO ratings (in all the categories) along th
 ]
 ```
 
-## Running Sample
+## Running API
 
-You may find a running sample in [https://lit-wildwood-98645.herokuapp.com](https://lit-wildwood-98645.herokuapp.com), deployed using [Heroku](https://www.heroku.com)'s free deployments.
+You may find a running sample at [https://fide-ratings-scraper.herokuapp.com/](https://fide-ratings-scraper.herokuapp.com/), deployed using [Heroku](https://www.heroku.com).

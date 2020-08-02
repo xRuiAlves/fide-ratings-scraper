@@ -12,6 +12,7 @@ const {
  */
 const DEFAULT_PORT = 3000;
 const DEFAULT_REQUEST_TIMEOUT = 10000;
+const API_INFO_URL = "https://github.com/xRuiAlves/fide-ratings-scraper/blob/master/README.md#api";
 const port = process.env.PORT || DEFAULT_PORT;
 const request_timeout = parseInt(process.env.RESPONSE_TIMEOUT_MS, 10) || DEFAULT_REQUEST_TIMEOUT;
 
@@ -31,6 +32,13 @@ app.use((_req, res, next) => {
     res.set("Access-Control-Allow-Origin", "*");
 
     next();
+});
+
+/**
+ * Root endpoint
+ */
+app.get("/", (_req, res) => {
+    res.json(`Greetings! Please refer to  ${API_INFO_URL}  for info about the available endpoints.`);
 });
 
 /**
