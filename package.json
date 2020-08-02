@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "eslint": "^7.6.0",
+    "fs": "0.0.1-security",
     "jest": "^26.2.2",
     "nodemon": "^2.0.4"
   }

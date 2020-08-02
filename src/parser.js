@@ -5,6 +5,7 @@ const { parseDate } = require("./utils");
 /**
  * Parse player ranking from FIDE player page
  * @param {Object} data
+ * @throws {String}
  * @returns {JSON} Player ranking
  */
 const parseRankFromProfilePage = (data) => {
@@ -33,6 +34,7 @@ const parseRankFromProfilePage = (data) => {
 /**
  * Parse player personal data from FIDE player page
  * @param {Object} data
+ * @throws {String}
  * @returns {JSON} Player personal data
  */
 const parsePersonalDataFromProfilePage = (data) => {
@@ -59,6 +61,7 @@ const parsePersonalDataFromProfilePage = (data) => {
 /**
  * Parse player ELO from FIDE player page
  * @param {Object} data
+ * @throws {String}
  * @returns {JSON} Player ELO
  */
 const parseEloFromProfilePage = (data) => {
@@ -81,11 +84,16 @@ const parseEloFromProfilePage = (data) => {
 /**
  * Parse player history from FIDE player history page
  * @param {Object} data
+ * @throws {String}
  * @returns {JSON} Player history
  */
 const parseHistoryFromHistoryPage = (data) => {
     const $ = cheerio.load(data);
     const table_entries = $("table.profile-table.profile-table_chart-table tbody tr");
+
+    if (table_entries.length === 0) {
+        throw "Not found";
+    }
 
     const history = [];
     table_entries.map((i) => {
