@@ -1,5 +1,11 @@
 # FIDE ratings scraper
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/npm/v/fide-ratings-scraper.svg?style=flat-square)](https://www.npmjs.com/package/fide-ratings-scraper)
+[![Build Status](https://circleci.com/gh/xRuiAlves/fide-ratings-scraper.svg?style=shield)](https://circleci.com/gh/xRuiAlves/fide-ratings-scraper)
+[![Coverage Status](https://coveralls.io/repos/github/xRuiAlves/fide-ratings-scraper/badge.svg?branch=master)](https://coveralls.io/github/xRuiAlves/fide-ratings-scraper?branch=master)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FxRuiAlves%fide-ratings-scraper%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/xRuiAlves/fide-ratings-scraper/master)
+
 [FIDE](http://ratings.fide.com/) is the International Chess Federation. They have a ratings sub-domain where players can check their international ELO rating (in different categories), their perfomance history, *et cetera*.
 
 This set of JS utility functions (built using NodeJS) aim to provide a sort-of-api to get info from their ratings pages.

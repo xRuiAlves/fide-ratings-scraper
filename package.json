@@ -10,7 +10,9 @@
     "start": "nodemon src/api.js",
     "prod": "node src/api.js",
     "test": "jest --coverage",
+    "test:publish": "npm test && coveralls < coverage/lcov.info",
     "test:mutation": "stryker run",
+    "test:mutation:publish": "stryker run --reporters dashboard",
     "lint": "eslint test/**/*.js src/**/*.js"
   },
   "author": "",
@@ -26,6 +28,7 @@
     "@stryker-mutator/core": "^3.3.1",
     "@stryker-mutator/javascript-mutator": "^3.3.1",
     "@stryker-mutator/jest-runner": "^3.3.1",
+    "coveralls": "^3.1.0",
     "eslint": "^7.6.0",
     "fs": "0.0.1-security",
     "jest": "^26.2.2",
