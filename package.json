@@ -2,14 +2,15 @@
   "name": "fidescrapper",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "src/main.js",
   "engines": {
     "node": "10.16.3"
   },
   "scripts": {
-    "test": "jest",
-    "lint": "eslint .",
-    "start": "node main.js"
+    "start": "nodemon src/main.js",
+    "prod": "node src/main.js",
+    "test": "jest --coverage",
+    "lint": "eslint test/**/*.js src/**/*.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,8 +22,8 @@
     "express-timeout-handler": "^2.2.0"
   },
   "devDependencies": {
-    "eslint": "^6.5.1",
-    "eslint-plugin-jest": "^22.17.0",
-    "jest": "^26.2.2"
+    "eslint": "^7.6.0",
+    "jest": "^26.2.2",
+    "nodemon": "^2.0.4"
   }
 }

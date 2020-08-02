@@ -4,7 +4,7 @@ const DEFAULT_PORT = 3000;
 const DEFAULT_REQUEST_TIMEOUT = 10000;
 
 const fide_ratings = require("./fide_ratings");
-const utils = require("./utils");
+const { buildErrorResponse } = require("./utils");
 const express = require("express");
 const timeout = require("express-timeout-handler");
 const app = express();
@@ -29,7 +29,7 @@ app.get("/player/:fide_num/*", (req, res, next) => {
 
     if (isNaN(fide_num)) {
         res.status(400).json(
-            utils.buildErrorResponse("The player's fide number must be a positive integer number",
+            buildErrorResponse("The player's fide number must be a positive integer number",
             ));
     } else {
         next();
@@ -73,22 +73,25 @@ app.get("/player/:fide_num/history/", (req, res) => {
 
     fide_ratings.getPlayerHistory(fide_num)
         .then((data) => res.json(data))
-        .catch((err) => playerEndpointsErrorHandler(err, res));
+        .catch((err) => {
+            console.error(err);
+            playerEndpointsErrorHandler(err, res);
+        });
 });
 
 app.get("*", (req, res) => res.status(404).send(""));
 
 app.listen(port, () =>
-    console.log(`Started listening on ${port} . . .`),
+    console.info(`Started listening on ${port} . . .`),
 );
 
 const playerEndpointsErrorHandler = (err, res) => {
     if (err === "Not found") {
-        res.status(404).json(utils.buildErrorResponse(
+        res.status(404).json(buildErrorResponse(
             "Requested player does not exist",
         ));
     }
-    res.status(500).json(utils.buildErrorResponse(
+    res.status(500).json(buildErrorResponse(
         "Failed to fetch player information",
     ));
 };

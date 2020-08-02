@@ -1,6 +1,7 @@
+/* eslint-disable array-callback-return */
 const axios = require("axios");
 const cheerio = require("cheerio");
-const utils = require("./utils");
+const { parseDate, ratingJSONToCSV } = require("./utils");
 
 // Pages fetching
 const fetchProfilePage = async (fide_num) => {
@@ -107,7 +108,7 @@ const getPlayerHistory = async (fide_num, csv_output) => {
         const row = cheerio.load(table_entries[i])("td");
         history.push({
             date: row[0].children[0].data.replace(/\s/g, ""),
-            numeric_date: utils.parseDate(row[0].children[0].data.replace(/\s/g, "")),
+            numeric_date: parseDate(row[0].children[0].data.replace(/\s/g, "")),
             standard: row[1].children[0].data.replace(/\s/g, ""),
             num_standard_games: row[2].children[0].data.replace(/\s/g, ""),
             rapid: row[3].children[0].data.replace(/\s/g, ""),
@@ -117,7 +118,7 @@ const getPlayerHistory = async (fide_num, csv_output) => {
         });
     });
     return csv_output ? history.sort((e1, e2) => e2.numeric_date - e1.numeric_date).map((entry) =>
-        utils.ratingJSONToCSV(entry),
+        ratingJSONToCSV(entry),
     ) : history;
 };
 
