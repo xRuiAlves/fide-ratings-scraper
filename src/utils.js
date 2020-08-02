@@ -1,3 +1,6 @@
+/**
+ * Date string to numberic string format map
+ */
 const date_map = Object.freeze({
     "Jan": "01",
     "Feb": "02",
@@ -13,6 +16,12 @@ const date_map = Object.freeze({
     "Dec": "12",
 });
 
+/**
+ * Parse date from 'YYYY-MMM' format to 'YYYYMM' numeric format
+ * @param {String} date
+ * @throws {Error}
+ * @returns {String} Date in 'YYYYMM' numeric format
+ */
 const parseDate = (date) => {
     if (!date || date.length !== 8) {
         throw new Error("Invalid input date format");
@@ -27,8 +36,12 @@ const parseDate = (date) => {
     return parseInt(`${date.substr(0, 4)}${month_num}`, 10);
 };
 
-const ratingJSONToCSV = (json) => `(${json.date},${json.standard},${json.rapid},${json.blitz})`;
-
+/**
+ * Build a JSON error response
+ * @param {String} reason
+ * @throws {Error}
+ * @returns {Object} JSON response (with 'error' field)
+ */
 const buildErrorResponse = (reason) => {
     if (typeof reason !== "string") {
         throw new Error("Error reason should be of type string");
@@ -38,6 +51,5 @@ const buildErrorResponse = (reason) => {
 
 module.exports = {
     parseDate,
-    ratingJSONToCSV,
     buildErrorResponse,
 };

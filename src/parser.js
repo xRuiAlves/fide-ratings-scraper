@@ -1,33 +1,18 @@
 /* eslint-disable array-callback-return */
-const axios = require("axios");
 const cheerio = require("cheerio");
-const { parseDate, ratingJSONToCSV } = require("./utils");
+const { parseDate } = require("./utils");
 
-// Pages fetching
-const fetchProfilePage = async (fide_num) => {
-    const res = await axios.get(`https://ratings.fide.com/profile/${fide_num}`);
-    const $ = cheerio.load(res.data);
-
+/**
+ * Parse player ranking from FIDE player page
+ * @param {Object} data
+ * @returns {JSON} Player ranking
+ */
+const parseRankFromProfilePage = (data) => {
+    const $ = cheerio.load(data);
     if ($(".profile-bottom").length === 0) {
         throw "Not found";
-    } else {
-        return $;
     }
-};
 
-const fetchHistoryPage = async (fide_num) => {
-    const res = await axios.get(`https://ratings.fide.com/profile/${fide_num}/chart`);
-    const $ = cheerio.load(res.data);
-
-    if ($(".profile-bottom").length === 0) {
-        throw "Not found";
-    } else {
-        return $;
-    }
-};
-
-// Pages Parsing
-const parseRankFromProfilePage = ($) => {
     const world_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(1) td")[2].children[0].data, 10);
     const world_rank_active_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(2) td")[1].children[0].data, 10);
     const national_rank_all_players = parseInt($("table.profile-table:first-child tbody tr:nth-child(1) td")[4].children[0].data, 10);
@@ -45,7 +30,17 @@ const parseRankFromProfilePage = ($) => {
     };
 };
 
-const parsePersonalDataFromProfilePage = ($) => {
+/**
+ * Parse player personal data from FIDE player page
+ * @param {Object} data
+ * @returns {JSON} Player personal data
+ */
+const parsePersonalDataFromProfilePage = (data) => {
+    const $ = cheerio.load(data);
+    if ($(".profile-bottom").length === 0) {
+        throw "Not found";
+    }
+
     const name = $(".profile-top-title")[0].children[0].data;
     const federation = $(".profile-top-info__block__row__data")[1].children[0].data;
     const birth_year = parseInt($(".profile-top-info__block__row__data")[3].children[0].data, 10);
@@ -61,7 +56,17 @@ const parsePersonalDataFromProfilePage = ($) => {
     };
 };
 
-const parseEloFromProfilePage = ($) => {
+/**
+ * Parse player ELO from FIDE player page
+ * @param {Object} data
+ * @returns {JSON} Player ELO
+ */
+const parseEloFromProfilePage = (data) => {
+    const $ = cheerio.load(data);
+    if ($(".profile-bottom").length === 0) {
+        throw "Not found";
+    }
+
     const standard_elo = $(".profile-top-rating-data")[0].children[2].data.replace(/\s/g, "");
     const rapid_elo = $(".profile-top-rating-data")[1].children[2].data.replace(/\s/g, "");
     const blitz_elo = $(".profile-top-rating-data")[2].children[2].data.replace(/\s/g, "");
@@ -73,34 +78,13 @@ const parseEloFromProfilePage = ($) => {
     };
 };
 
-// Data methods
-const getPlayerRank = async (fide_num) => {
-    const $ = await fetchProfilePage(fide_num);
-    return parseRankFromProfilePage($);
-};
-
-const getPlayerPersonalData = async (fide_num) => {
-    const $ = await fetchProfilePage(fide_num);
-    return parsePersonalDataFromProfilePage($);
-};
-
-const getPlayerElo = async (fide_num) => {
-    const $ = await fetchProfilePage(fide_num);
-    return parseEloFromProfilePage($);
-};
-
-const getPlayerFullInfo = async (fide_num) => {
-    const $ = await fetchProfilePage(fide_num);
-
-    return {
-        ...parsePersonalDataFromProfilePage($),
-        ...parseEloFromProfilePage($),
-        ...parseRankFromProfilePage($),
-    };
-};
-
-const getPlayerHistory = async (fide_num, csv_output) => {
-    const $ = await fetchHistoryPage(fide_num);
+/**
+ * Parse player history from FIDE player history page
+ * @param {Object} data
+ * @returns {JSON} Player history
+ */
+const parseHistoryFromHistoryPage = (data) => {
+    const $ = cheerio.load(data);
     const table_entries = $("table.profile-table.profile-table_chart-table tbody tr");
 
     const history = [];
@@ -117,15 +101,13 @@ const getPlayerHistory = async (fide_num, csv_output) => {
             num_blitz_games: row[6].children[0].data.replace(/\s/g, ""),
         });
     });
-    return csv_output ? history.sort((e1, e2) => e2.numeric_date - e1.numeric_date).map((entry) =>
-        ratingJSONToCSV(entry),
-    ) : history;
+
+    return history;
 };
 
 module.exports = {
-    getPlayerFullInfo,
-    getPlayerElo,
-    getPlayerHistory,
-    getPlayerRank,
-    getPlayerPersonalData,
+    parseRankFromProfilePage,
+    parsePersonalDataFromProfilePage,
+    parseEloFromProfilePage,
+    parseHistoryFromHistoryPage,
 };

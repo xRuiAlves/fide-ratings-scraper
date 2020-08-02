@@ -2,13 +2,13 @@
   "name": "fidescrapper",
   "version": "1.0.0",
   "description": "",
-  "main": "src/main.js",
+  "main": "src/api.js",
   "engines": {
     "node": "10.16.3"
   },
   "scripts": {
-    "start": "nodemon src/main.js",
-    "prod": "node src/main.js",
+    "start": "nodemon src/api.js",
+    "prod": "node src/api.js",
     "test": "jest --coverage",
     "lint": "eslint test/**/*.js src/**/*.js"
   },

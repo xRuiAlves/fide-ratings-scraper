@@ -1,4 +1,4 @@
-const { parseDate, ratingJSONToCSV, buildErrorResponse } = require("../src/utils");
+const { parseDate, buildErrorResponse } = require("../src/utils");
 
 describe("Parse date format", () => {
     it("Should correctly parse valid dates", () => {
@@ -34,46 +34,6 @@ describe("Parse date format", () => {
         ).not.toThrow();
     });
 });
-
-describe("Convert ratings JSON to CSV format", () => {
-    it("should convert from JSON to CSV format", () => {
-        expect(ratingJSONToCSV({
-            standard: 1500,
-            rapid: 1400,
-            blitz: 1300,
-            date: "2019-Jan",
-        })).toBe("(2019-Jan,1500,1400,1300)");
-
-        expect(ratingJSONToCSV({
-            standard: 1500,
-            rapid: 1400,
-            blitz: 1300,
-            date: "",
-        })).toBe("(,1500,1400,1300)");
-
-        expect(ratingJSONToCSV({
-            standard: "",
-            rapid: 1400,
-            blitz: 1300,
-            date: "2019-Jan",
-        })).toBe("(2019-Jan,,1400,1300)");
-
-        expect(ratingJSONToCSV({
-            standard: 1500,
-            rapid: "",
-            blitz: 1300,
-            date: "2019-Jan",
-        })).toBe("(2019-Jan,1500,,1300)");
-
-        expect(ratingJSONToCSV({
-            standard: 1500,
-            rapid: 1400,
-            blitz: "",
-            date: "2019-Jan",
-        })).toBe("(2019-Jan,1500,1400,)");
-    });
-});
-
 
 describe("Build an error response in JSON format", () => {
     it("should throw if error message is not valid", () => {
