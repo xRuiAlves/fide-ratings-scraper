@@ -12,7 +12,7 @@ This package offers an interface (both as a CLI and/or as a server API) to get c
 
 ## Features
 
-- Access chess players0 FIDE ratings information in a programative way
+- Access chess players' FIDE ratings information in a programative way
 - Easily expose an API to access ratings resource scraped and parsed directly from FIDE ratings website
 
 ## Installing
