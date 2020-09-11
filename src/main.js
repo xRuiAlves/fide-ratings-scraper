@@ -47,7 +47,7 @@ const getPlayerFullInfo = async (fide_num, include_history = false) => {
         ...parsePersonalDataFromProfilePage(data),
         ...parseEloFromProfilePage(data),
         ...parseRankFromProfilePage(data),
-        ...history,
+        history,
     };
 };
 
