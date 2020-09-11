@@ -39,13 +39,15 @@ const getPlayerElo = async (fide_num) => {
  * @param {Integer} fide_num
  * @returns {JSON} Player full information
  */
-const getPlayerFullInfo = async (fide_num) => {
+const getPlayerFullInfo = async (fide_num, include_history = false) => {
     const { data } = await fetchProfilePage(fide_num);
+    const history = await (include_history ? getPlayerHistory(fide_num) : Promise.resolve(undefined));
 
     return {
         ...parsePersonalDataFromProfilePage(data),
         ...parseEloFromProfilePage(data),
         ...parseRankFromProfilePage(data),
+        ...history,
     };
 };
 
