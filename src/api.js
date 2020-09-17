@@ -61,8 +61,9 @@ app.get("/player/:fide_num/*", (req, res, next) => {
  */
 app.get("/player/:fide_num/info", (req, res) => {
     const { fide_num } = req.params;
+    const { include_history } = req.query;
 
-    getPlayerFullInfo(fide_num)
+    getPlayerFullInfo(fide_num, include_history)
         .then((data) => res.json(data))
         .catch((err) => playerEndpointsErrorHandler(err, res));
 });
