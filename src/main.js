@@ -10,7 +10,7 @@ const {
  * @returns {JSON} Player ranking
  */
 const getPlayerRank = async (fide_num) => {
-    const { data } = await fetchProfilePage(fide_num);
+    const data = await fetchProfilePage(fide_num);
     return parseRankFromProfilePage(data);
 };
 
@@ -20,7 +20,7 @@ const getPlayerRank = async (fide_num) => {
  * @returns {JSON} Player personal data
  */
 const getPlayerPersonalData = async (fide_num) => {
-    const { data } = await fetchProfilePage(fide_num);
+    const data = await fetchProfilePage(fide_num);
     return parsePersonalDataFromProfilePage(data);
 };
 
@@ -30,7 +30,7 @@ const getPlayerPersonalData = async (fide_num) => {
  * @returns {JSON} Player ELO
  */
 const getPlayerElo = async (fide_num) => {
-    const { data } = await fetchProfilePage(fide_num);
+    const data = await fetchProfilePage(fide_num);
     return parseEloFromProfilePage(data);
 };
 
@@ -40,7 +40,7 @@ const getPlayerElo = async (fide_num) => {
  * @returns {JSON} Player full information
  */
 const getPlayerFullInfo = async (fide_num, include_history = false) => {
-    const { data } = await fetchProfilePage(fide_num);
+    const data = await fetchProfilePage(fide_num);
     const history = await (include_history ? getPlayerHistory(fide_num) : Promise.resolve(undefined));
 
     return {
@@ -57,7 +57,7 @@ const getPlayerFullInfo = async (fide_num, include_history = false) => {
  * @returns {JSON} Player history
  */
 const getPlayerHistory = async (fide_num) => {
-    const { data } = await fetchHistoryPage(fide_num);
+    const data = await fetchHistoryPage(fide_num);
     return parseHistoryFromHistoryPage(data);
 };
 

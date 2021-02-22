@@ -25,11 +25,11 @@
   "author": "Rui Alves",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.0",
     "cheerio": "^1.0.0-rc.3",
     "dotenv-flow": "^3.1.0",
     "express": "^4.17.1",
-    "express-timeout-handler": "^2.2.0"
+    "express-timeout-handler": "^2.2.0",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@stryker-mutator/core": "^3.3.1",
