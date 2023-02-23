@@ -226,10 +226,6 @@ To run mutation tests:
 $ npm run test:mutation
 ```
 
-## Running API
-
-A running sample may be found at [https://fide-ratings-scraper.herokuapp.com/](https://fide-ratings-scraper.herokuapp.com/), deployed using [Heroku](https://www.heroku.com).
-
 ## License
 
 [MIT](https://github.com/xRuiAlves/fide-ratings-scraper/blob/master/LICENSE)
