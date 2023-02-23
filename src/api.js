@@ -21,7 +21,7 @@ const request_timeout = parseInt(process.env.RESPONSE_TIMEOUT_MS, 10) || DEFAULT
  */
 app.use(timeout.handler({
     timeout: request_timeout,
-    onTimeout: (req, res) => res.status(408).send(),
+    onTimeout: (_req, res) => res.status(408).send(),
 }));
 
 /**
@@ -50,7 +50,7 @@ app.get("/player/:fide_num/*", (req, res, next) => {
     if (isNaN(fide_num)) {
         res.status(400).json(
             buildErrorResponse("The player's fide number must be a positive integer number",
-            ));
+        ));
     } else {
         next();
     }
@@ -115,7 +115,7 @@ app.get("/player/:fide_num/history/", (req, res) => {
 /**
  * Page not found fallback
  */
-app.get("*", (req, res) => res.status(404).send(""));
+app.get("*", (_req, res) => res.status(404).send(""));
 
 /**
  * Server
