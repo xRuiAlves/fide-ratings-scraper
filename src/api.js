@@ -48,7 +48,7 @@ app.get("/player/:fide_num/*", (req, res, next) => {
     const { fide_num } = req.params;
 
     if (isNaN(fide_num)) {
-        res.status(400).json(
+        return res.status(400).json(
             buildErrorResponse("The player's fide number must be a positive integer number",
         ));
     } else {
@@ -131,11 +131,11 @@ app.listen(port, () =>
  */
 const playerEndpointsErrorHandler = (err, res) => {
     if (err === "Not found") {
-        res.status(404).json(buildErrorResponse(
+        return res.status(404).json(buildErrorResponse(
             "Requested player does not exist",
         ));
     }
-    res.status(500).json(buildErrorResponse(
+    return res.status(500).json(buildErrorResponse(
         "Failed to fetch player information",
     ));
 };
