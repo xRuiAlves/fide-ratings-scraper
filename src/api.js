@@ -50,7 +50,7 @@ app.get("/player/:fide_num/*", (req, res, next) => {
     if (isNaN(fide_num)) {
         return res.status(400).json(
             buildErrorResponse("The player's fide number must be a positive integer number",
-        ));
+            ));
     } else {
         next();
     }
