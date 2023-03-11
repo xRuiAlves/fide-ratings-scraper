@@ -32,9 +32,9 @@
     "node-fetch": "^3.1.1"
   },
   "devDependencies": {
-    "@stryker-mutator/core": "^3.3.1",
-    "@stryker-mutator/javascript-mutator": "^3.3.1",
-    "@stryker-mutator/jest-runner": "^3.3.1",
+    "@stryker-mutator/core": "^6.4.1",
+    "@stryker-mutator/javascript-mutator": "^4.0.0",
+    "@stryker-mutator/jest-runner": "^6.4.1",
     "coveralls": "^3.1.0",
     "eslint": "^7.6.0",
     "fs": "0.0.1-security",
