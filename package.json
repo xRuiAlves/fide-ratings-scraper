@@ -1,6 +1,6 @@
 {
   "name": "fide-ratings-scraper",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "FIDE player ratings scraper",
   "repository": "github:xRuiAlves/fide-ratings-scraper",
   "main": "src/main.js",
